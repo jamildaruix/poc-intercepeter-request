@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  poc-intercepeter-api:
+    image: ${DOCKER_REGISTRY-}pocintercepeterapi
+    build:
+      context: .
+      dockerfile: poc-intercepeter-api/Dockerfile
