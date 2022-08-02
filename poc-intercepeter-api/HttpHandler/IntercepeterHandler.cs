@@ -29,26 +29,16 @@ public class IntercepeterHandler : DelegatingHandler
 
     private async Task InvokeApiLog(HttpResponseMessage httpResponseMessage)
     {
-        ///var results = await(await httpResponseMessage).Content.ReadAsStringAsync();
-
-        //var channel = GrpcChannel.ForAddress("https://localhost:5001");
-        //var client = new Greeter.GreeterClient(channel);
-
-        //var response = await client.SayHelloAsync(
-        //    new HelloRequest { Name = "World" });
-
-        //Console.WriteLine(response.Message);
-
-        var reply = await _client.SayHelloAsync(new HelloRequest { Name = "JAMIL" });
-        Console.WriteLine(reply.Message);
-
-
+        
         var response = await httpResponseMessage.Content.ReadAsStringAsync();
 
         if (!string.IsNullOrWhiteSpace(response))
         {
             //ArgumentNullException.ThrowIfNull(results, nameof(httpResponseMessage));
             var aprovadoCredit = JsonSerializer.Deserialize<AprovadoVBResponse>(response, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+            var reply = await _client.SayHelloAsync(new HelloRequest { Name = $"SOLICITACAO {aprovadoCredit!.Aprovado}" });
+            Console.WriteLine(reply.Message);
         }
     }
 

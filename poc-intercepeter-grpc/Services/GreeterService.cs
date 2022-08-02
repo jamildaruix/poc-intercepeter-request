@@ -11,12 +11,10 @@ namespace Services
             _logger = logger;
         }
 
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context) 
+            => Task.FromResult(new HelloReply
         {
-            return Task.FromResult(new HelloReply
-            {
-                Message = "Hello " + request.Name
-            });
-        }
+            Message = $"gRPC Comunication {request.Name}, Datetime {DateTime.Now}"
+        });
     }
 }
