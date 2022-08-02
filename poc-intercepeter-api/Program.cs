@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddGrpcClient<Greeter.GreeterClient>(c =>
 {
-    c.Address = new Uri("http://host.docker.internal:62395");
+    c.Address = new Uri("http://host.docker.internal:64891");
 });
 
 builder.Services
