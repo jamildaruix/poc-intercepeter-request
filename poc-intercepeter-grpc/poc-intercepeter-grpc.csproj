@@ -14,6 +14,15 @@
   </ItemGroup>
 	
   <ItemGroup>
-	  <Protobuf Include="..\poc-intercepeter-protos\Protos\address.proto" ProtoRoot="..\poc-intercepeter-protos" GrpcServices="Server" />
+	  <Protobuf Include="..\Proto\greet.proto" GrpcServices="Server" Link="Protos\greet.proto" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
