@@ -14,24 +14,23 @@ namespace Poc.Intercepeter.GRPC.Services
         {
             _logger = logger;
 
-            var mongoClient = new MongoClient(@"mongodb://root:password@localhost:27017");
+            const string serverMongoDB = "mongodb";
+            const string username = "root";
+            const string password = "password";
 
-            var mongoDatabase = mongoClient.GetDatabase("LogForncedorStore");
-            _collection = mongoDatabase.GetCollection<LogFornecedor>("teste");
+            var uri = $"mongodb://{username}:{Uri.EscapeDataString(password)}@{serverMongoDB}:27017/";
+            var url = new MongoUrl(uri);
+
+            var mongoClient = new MongoClient(url);
+
+            var mongoDatabase = mongoClient.GetDatabase($"{nameof(LogFornecedor)}Store");
+            _collection = mongoDatabase.GetCollection<LogFornecedor>(nameof(LogFornecedor));
         }
 
         public override async Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            try
-            {
-                await _collection.InsertOneAsync(new LogFornecedor { Jamil = "teste"});
-            }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
-            
+            await _collection.InsertOneAsync(new LogFornecedor { Jamil = "teste" });
 
             return await Task.FromResult(new HelloReply
             {
