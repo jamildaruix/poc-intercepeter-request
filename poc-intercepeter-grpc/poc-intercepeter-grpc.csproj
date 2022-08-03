@@ -4,13 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>01cea59d-d03c-428d-be24-7d63bd669d1a</UserSecretsId>
+    <RootNamespace>Poc.Intercepeter.GRPC</RootNamespace>
+	<UserSecretsId>01cea59d-d03c-428d-be24-7d63bd669d1a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.47.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.16.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
   </ItemGroup>
 	
   <ItemGroup>
