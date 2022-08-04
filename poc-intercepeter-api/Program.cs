@@ -1,9 +1,8 @@
-using Greet;
+using Log;
 using Poc.Intercepeter.Api.Domain.Credit;
 using Poc.Intercepeter.Api.HttpHandler;
 using Poc.Intercepeter.Api.Middleware;
 using Poc.Intercepeter.Api.Service.BV;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddGrpcClient<Greeter.GreeterClient>(c =>
+builder.Services.AddGrpcClient<LogRequest.LogRequestClient>(c =>
 {
-    c.Address = new Uri("http://host.docker.internal:64891");
+    c.Address = new Uri("http://host.docker.internal:55138");
 });
 
 builder.Services

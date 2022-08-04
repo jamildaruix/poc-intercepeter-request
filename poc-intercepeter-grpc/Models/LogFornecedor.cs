@@ -3,14 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Poc.Intercepeter.GRPC.Models
 {
-    //public record LogFornecedor(string RequestId, string PayloadApi, string RequestForncedor, string ResponseForncedor) : BsonBase;
+    public record LogFornecedor(string RequestId, BsonDocument documentRequest) : BsonBase;
 
-    public class LogFornecedor : BsonBase
-    {
-        public string Jamil { get; set; }
-    }
-
-    public class BsonBase
+    public record BsonBase
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

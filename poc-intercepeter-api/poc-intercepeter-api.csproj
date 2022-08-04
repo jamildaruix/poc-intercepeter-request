@@ -39,7 +39,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\Proto\greet.proto" Link="Protos\greet.proto" GrpcServices="Client" />
+		<Protobuf Include="..\Proto\logforncedor.proto" GrpcServices="Client" Link="Protos\logforncedor.proto" />
 	</ItemGroup>
 
 </Project>

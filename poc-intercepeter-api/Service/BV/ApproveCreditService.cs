@@ -34,7 +34,7 @@ namespace Poc.Intercepeter.Api.Service.BV
         }
 
         private static HttpRequestMessage CreateRequestMessage()
-                        => new(HttpMethod.Get, "http://host.docker.internal:64889/api/validate")
+                        => new(HttpMethod.Get, "http://host.docker.internal:55193/api/validate")
                         {
                             Headers = { { "Accept", "application/json" } }
                         };

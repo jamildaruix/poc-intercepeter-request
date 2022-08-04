@@ -22,7 +22,7 @@ services:
       #- ASPNETCORE_Kestrel__Certificates__Default__Password=localhost
       #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
     ports:
-      - 64889:80
+      - 55193:80
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -32,8 +32,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - 64891:80
-      - 64892:443
+      - 55138:80
+      - 55137:443
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

@@ -1,14 +1,13 @@
-﻿using Greet;
-using Grpc.Net.Client;
+﻿using Log;
 using System.Text.Json;
 
 namespace Poc.Intercepeter.Api.HttpHandler;
 
 public class IntercepeterHandler : DelegatingHandler
 {
-    private readonly Greeter.GreeterClient _client;
+    private readonly LogRequest.LogRequestClient _client;
 
-    public IntercepeterHandler(Greeter.GreeterClient client)
+    public IntercepeterHandler(LogRequest.LogRequestClient client)
     {
         _client = client;
     }
@@ -35,9 +34,19 @@ public class IntercepeterHandler : DelegatingHandler
         if (!string.IsNullOrWhiteSpace(response))
         {
             //ArgumentNullException.ThrowIfNull(results, nameof(httpResponseMessage));
-            var aprovadoCredit = JsonSerializer.Deserialize<AprovadoVBResponse>(response, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            var creditAproved = JsonSerializer.Deserialize<AprovadoVBResponse>(response, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-            var reply = await _client.SayHelloAsync(new HelloRequest { Name = $"SOLICITACAO {aprovadoCredit!.Aprovado}" });
+            //var reply = await _client.SayHelloAsync(new HelloRequest { Name = $"SOLICITACAO {aprovadoCredit!.Aprovado}" });
+            FornecedorRequest fornecedorRequest = new()
+            { 
+                PayloadApi = $"PALYLOADAPI  {DateTime.Now}",
+                RequestForncedor = $"REQUEST FORNCEDOR  {DateTime.Now}",
+                RequestId = $"request id {DateTime.Now}",
+                ResponseForncedor  = response
+            };
+
+            var reply = await _client.CreateAsync(fornecedorRequest);
+
             Console.WriteLine(reply.Message);
         }
     }

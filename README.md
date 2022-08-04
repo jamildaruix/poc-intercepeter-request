@@ -48,3 +48,6 @@ https://docs.microsoft.com/en-us/aspnet/core/grpc/why-migrate-wcf-to-dotnet-grpc
 
 ## gRPC health checks in ASP.NET Core
 https://docs.microsoft.com/en-us/aspnet/core/grpc/health-checks?view=aspnetcore-6.0
+
+## protocol buffers
+https://docs.microsoft.com/pt-br/dotnet/architecture/grpc-for-wcf-developers/protocol-buffers
