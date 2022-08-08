@@ -29,11 +29,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/validate", () =>
+app.MapPost("/api/validate", (SolicitacaoBV model) =>
 {
-    return new AprovadoVB(DateTime.Now, DateTime.Now.Second > 30);
+    return new AprovadoBV(DateTime.Now, DateTime.Now.Second > 30);
 });
 
 app.Run();
 
-internal record AprovadoVB(DateTime Date, bool Aprovado);
+internal record AprovadoBV(DateTime Date, bool Aprovado);
+
+internal record SolicitacaoBV(int Codigo, decimal Valor);

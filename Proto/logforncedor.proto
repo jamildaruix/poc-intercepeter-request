@@ -8,12 +8,10 @@ service LogRequest {
 
 // The request message containing the user's name.
 message FornecedorRequest {
-  string requestId = 1;
-  string payloadApi = 2;
-  string requestForncedor = 3;
-  string responseForncedor = 4;
+  string requestForncedor = 1;
+  string responseForncedor = 2;
 }
 
-message StatusResponse {
-  string message = 1;
+message StatusResponse{
+	string message = 1;
 }

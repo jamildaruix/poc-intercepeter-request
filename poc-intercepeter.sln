@@ -11,6 +11,12 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "poc-intercepeter-grpc", "poc-intercepeter-grpc\poc-intercepeter-grpc.csproj", "{20565173-90D8-41F3-B9FB-D8A2AFC34E86}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-ExternApi", "02-ExternApi", "{E7920BB8-FA28-4783-A8D0-9D4BD9164294}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-GRPC", "03-GRPC", "{C8828CF4-85AC-4375-9342-F7F0BA4A8503}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-InternApi", "01-InternApi", "{1F604AAD-7F88-4675-873D-4F6B507DEDE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +42,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4BD8C30-F5CD-405C-B5BB-DDA540D74E1A} = {1F604AAD-7F88-4675-873D-4F6B507DEDE2}
+		{D4E56D3D-150F-4F49-8AE8-7CE79ECC1B04} = {E7920BB8-FA28-4783-A8D0-9D4BD9164294}
+		{20565173-90D8-41F3-B9FB-D8A2AFC34E86} = {C8828CF4-85AC-4375-9342-F7F0BA4A8503}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10C1B5CC-B0F6-439F-BCF3-329B05278617}

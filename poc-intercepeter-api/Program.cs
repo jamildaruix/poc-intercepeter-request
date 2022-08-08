@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddGrpcClient<LogRequest.LogRequestClient>(c =>
 {
-    c.Address = new Uri("http://host.docker.internal:55138");
+    c.Address = new Uri("http://host.docker.internal:64741");
 });
 
 builder.Services

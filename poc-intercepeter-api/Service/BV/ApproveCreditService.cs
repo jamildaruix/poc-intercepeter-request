@@ -1,8 +1,6 @@
-﻿using Flurl;
-using Flurl.Http;
-using Poc.Intercepeter.Api.Domain.Credit;
+﻿using Poc.Intercepeter.Api.Domain.Credit;
 using Poc.Intercepeter.Api.HttpHandler;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 
 namespace Poc.Intercepeter.Api.Service.BV
@@ -15,28 +13,35 @@ namespace Poc.Intercepeter.Api.Service.BV
 
         public async Task<bool> InvokeAsync(CreditRequest creditRequest)
         {
-            var returns = false;
-
             try
             {
-                HttpRequestMessage httpRequestMessage = CreateRequestMessage();
+                var jsonCreditRequest = JsonSerializer.Serialize(creditRequest, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                });
+
+                HttpRequestMessage httpRequestMessage = CreateRequestMessage(jsonCreditRequest);
                 var response = await _httpClient.SendAsync(httpRequestMessage);
+                
+                if (!response.IsSuccessStatusCode)
+                    return false;
+
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var weatherForecast = JsonSerializer.Deserialize<AprovadoVBResponse>(jsonString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                returns = true;
+                var requestBVExemplo = JsonSerializer.Deserialize<AprovadoVBResponse>(jsonString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                
+                return true;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-            return returns;
         }
 
-        private static HttpRequestMessage CreateRequestMessage()
-                        => new(HttpMethod.Get, "http://host.docker.internal:55193/api/validate")
+        private static HttpRequestMessage CreateRequestMessage(string json)
+                        => new(HttpMethod.Post, "http://host.docker.internal:64739/api/validate")
                         {
-                            Headers = { { "Accept", "application/json" } }
+                            Headers = { { "Accept", "application/json" } },
+                            Content = new StringContent(json, Encoding.UTF8, "application/json")
                         };
 
         //private static HttpRequestMessage CreateRequestMessage()

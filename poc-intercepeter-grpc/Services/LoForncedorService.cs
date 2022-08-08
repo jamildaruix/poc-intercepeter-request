@@ -20,9 +20,9 @@ namespace Poc.Intercepeter.GRPC.Services
             _logger = logger;
 
             var uri = $"mongodb://{username}:{password}@{serverMongoDB}:27017/";
-            var url = new MongoUrl(uri);
+            MongoUrl url = new(uri);
 
-            var mongoClient = new MongoClient(url);
+            MongoClient mongoClient = new(url);
 
             var mongoDatabase = mongoClient.GetDatabase($"{nameof(LogFornecedor)}Store");
             _collection = mongoDatabase.GetCollection<LogFornecedor>(nameof(LogFornecedor));
@@ -30,16 +30,17 @@ namespace Poc.Intercepeter.GRPC.Services
 
         public override Task<StatusResponse> Create(FornecedorRequest request, ServerCallContext context)
         {
-            var requestFornecedor = new BsonDocument();
-            requestFornecedor.Add("payloadApi", request.PayloadApi);
-            requestFornecedor.Add("requestFornecedor", request.RequestForncedor);
-            requestFornecedor.Add("responseForncedor", BsonSerializer.Deserialize<BsonDocument>(request.ResponseForncedor));
+            BsonDocument requestFornecedor = new()
+            {
+                { "requestFornecedor", BsonSerializer.Deserialize<BsonDocument>(request.RequestForncedor) },
+                { "responseForncedor", BsonSerializer.Deserialize<BsonDocument>(request.ResponseForncedor) }
+            };
 
-            _collection.InsertOneAsync(new LogFornecedor(request.RequestId, requestFornecedor));
+            _collection.InsertOneAsync(new LogFornecedor(requestFornecedor));
 
             return Task.FromResult(new StatusResponse
             {
-                Message = $"gRPC Comunication {request.RequestId}, Datetime {DateTime.Now}"
+                Message = $"gRPC Comunication, Datetime {DateTime.Now}"
             });
         }
     }

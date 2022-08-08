@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Poc.Intercepeter.GRPC.Models
 {
-    public record LogFornecedor(string RequestId, BsonDocument documentRequest) : BsonBase;
+    public record LogFornecedor(BsonDocument documentRequest) : BsonBase;
 
     public record BsonBase
     {

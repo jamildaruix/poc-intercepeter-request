@@ -33,7 +33,7 @@ namespace Poc.Intercepeter.Api.Middleware
                     if (!string.IsNullOrEmpty(jsonRequest))
                     {
                         var weatherForecast = JsonSerializer.Deserialize<CreditRequest>(jsonRequest, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                        Console.WriteLine($"Dados Json {weatherForecast!.Name}");
+                        Console.WriteLine($"Dados Json {weatherForecast!.Codigo}");
                     }
                 }
 

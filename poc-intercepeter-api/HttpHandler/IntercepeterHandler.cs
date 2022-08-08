@@ -1,5 +1,4 @@
 ﻿using Log;
-using System.Text.Json;
 
 namespace Poc.Intercepeter.Api.HttpHandler;
 
@@ -14,34 +13,29 @@ public class IntercepeterHandler : DelegatingHandler
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        var returns = await base.SendAsync(request, cancellationToken);
-        _ = InvokeApiLog(returns);
-        return returns;
+        var response = await base.SendAsync(request, cancellationToken);
+        _ = InvokeApiLogAsync(request, response);
+        return response;
     }
 
     protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        HttpResponseMessage returns = base.Send(request, cancellationToken);
-        _ = InvokeApiLog(returns);
-        return returns;
+        HttpResponseMessage response = base.Send(request, cancellationToken);
+        _ = InvokeApiLogAsync(request, response);
+        return response;
     }
 
-    private async Task InvokeApiLog(HttpResponseMessage httpResponseMessage)
+    private async Task InvokeApiLogAsync(HttpRequestMessage httpRequestMessage, HttpResponseMessage httpResponseMessage)
     {
-        
         var response = await httpResponseMessage.Content.ReadAsStringAsync();
 
         if (!string.IsNullOrWhiteSpace(response))
         {
             //ArgumentNullException.ThrowIfNull(results, nameof(httpResponseMessage));
-            var creditAproved = JsonSerializer.Deserialize<AprovadoVBResponse>(response, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-            //var reply = await _client.SayHelloAsync(new HelloRequest { Name = $"SOLICITACAO {aprovadoCredit!.Aprovado}" });
             FornecedorRequest fornecedorRequest = new()
             { 
-                PayloadApi = $"PALYLOADAPI  {DateTime.Now}",
-                RequestForncedor = $"REQUEST FORNCEDOR  {DateTime.Now}",
-                RequestId = $"request id {DateTime.Now}",
+                RequestForncedor = await httpRequestMessage.Content!.ReadAsStringAsync(),
                 ResponseForncedor  = response
             };
 
